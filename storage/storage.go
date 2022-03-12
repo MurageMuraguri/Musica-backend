@@ -5,8 +5,7 @@ import (
 	"musica/db"
 	"musica/model"
 	"musica/utils"
-
-	
+	"os/exec"
 
 	"fmt"
 
@@ -19,7 +18,7 @@ import (
 	"mime"
 	"net/http"
 	"os"
-	
+
 	"strings"
 	"time"
 )
@@ -51,7 +50,7 @@ func GetFile(c *gin.Context) {
 	}
 	var files []model.File
 	d.Where("user_id = ?", fmt.Sprintf("%v", claims["user_id"])).Find(&files)
-	
+
 	c.JSON(http.StatusOK, files)
 }
 
@@ -99,7 +98,7 @@ func Upload(c *gin.Context) {
 	ufile.Size = fi.Size()
 	ufile.UserId = fmt.Sprintf("%v", claims["user_id"])
 	//orgfiledir := path + "/public/" + slugged_name
-	
+
 	d.Create(&ufile)
 	c.JSON(http.StatusOK, ufile)
 
@@ -109,6 +108,8 @@ func GetMimeType(fileExtension string) string {
 	return mime.TypeByExtension(fileExtension)
 }
 
-
-
-
+func GetFingerprint(file string) string {
+	out, _ := exec.Command("/Users/nico/Downloads/untitled folder 3/Musica-backend/fpcalc", file).Output()
+	split := strings.Split(string(out), "FINGERPRINT=")
+	return split[1]
+}
