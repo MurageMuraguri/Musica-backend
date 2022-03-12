@@ -1,18 +1,15 @@
 package main
 
 import (
-	"log"
-	"os/exec"
-	"strings"
+	"musica/model/migrate"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	migrate.Migrate()
 	r := gin.Default()
 
-
-	log.Println(fingerprint)
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{"data": "kasee weh"})
 	})

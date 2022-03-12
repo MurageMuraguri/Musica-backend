@@ -109,7 +109,7 @@ func GetMimeType(fileExtension string) string {
 }
 
 func GetFingerprint(file string) string {
-	out, _ := exec.Command("/Users/nico/Downloads/untitled folder 3/Musica-backend/fpcalc", file).Output()
+	out, _ := exec.Command(utils.Path("fpcalc"), file).Output()
 	split := strings.Split(string(out), "FINGERPRINT=")
 	return split[1]
 }
