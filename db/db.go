@@ -1,7 +1,7 @@
 package db
 
 import (
-	"beats/utils"
+	"musica/utils"
 	"log"
 
 	"github.com/jinzhu/gorm"
